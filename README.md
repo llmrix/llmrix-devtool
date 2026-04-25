@@ -134,6 +134,27 @@ Config file is read from the first location found:
       "protocol": "openai",
       "apiKey": "${OPENAI_API_KEY}",
       "models": ["gpt-4o", "gpt-4o-mini", "o1", "o3-mini"]
+    },
+    {
+      "id": "deepseek",
+      "name": "DeepSeek",
+      "protocol": "openai",
+      "baseUrl": "https://api.deepseek.com/v1",
+      "apiKey": "${DEEPSEEK_API_KEY}",
+      "models": ["deepseek-chat", "deepseek-coder", "deepseek-reasoner"]
+    },
+    {
+      "id": "ollama",
+      "name": "Ollama (local)",
+      "protocol": "openai",
+      "baseUrl": "http://localhost:11434/v1",
+      "apiKey": "ollama",
+      "models": [
+        "qwen2.5-coder:7b",
+        "qwen2.5-coder:32b",
+        "codellama:13b",
+        "llama3.1:8b"
+      ]
     }
   ]
 }

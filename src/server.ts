@@ -88,6 +88,9 @@ When working in Agent or Plan mode, always:
  * `cache_control` annotation and behave as before.
  */
 function buildSystemPrompt(workspaceRoot: string): SystemMessage {
+  const platform = os.platform(); // 'darwin', 'win32', 'linux'
+  const isWindows = platform === "win32";
+
   return new SystemMessage({
     content: [
       {
@@ -101,7 +104,11 @@ function buildSystemPrompt(workspaceRoot: string): SystemMessage {
       },
       {
         type: "text",
-        text: `\n\n## Current workspace\n\nYour active project directory is: ${workspaceRoot}\n\nAll file operations (read, write, search, shell commands) are scoped to this directory.\nWhen the user refers to "this project", "the current project", or "my code", they mean\nthe code under ${workspaceRoot}. Always start exploration from this root.`,
+        text: `\n\n## Environment information\n\nOperating System: ${platform} (${os.release()})\nActive workspace: ${workspaceRoot}\n\nAll file operations (read, write, search, shell commands) are scoped to this directory.\nWhen the user refers to "this project", "the current project", or "my code", they mean\nthe code under ${workspaceRoot}. Always start exploration from this root.\n\n${
+          isWindows
+            ? "You are running on Windows. Use Windows-compatible shell commands (e.g., `dir` instead of `ls` if using cmd, or ensure PowerShell compatibility) and backslash path separators where appropriate."
+            : "You are running on a Unix-like system. Use standard POSIX shell commands and forward slash path separators."
+        }`,
       },
     ],
   });

@@ -11,8 +11,8 @@
  * existing `handleSetSessionMode` handler already present in deepagents-acp.
  */
 
-import type { ModelEntry } from "../../providers/model-utils.js";
-import { parseModelValue } from "../../providers/model-utils.js";
+import type { ModelEntry } from "../../utils/model.js";
+import { parseModelValue } from "../../utils/model.js";
 import { appendModelState } from "./patch-session.js";
 import { createModel } from "../../providers/model.js";
 import type { CopilotConfig } from "../../config/types.js";

@@ -15,8 +15,8 @@
 
 import { DeepAgentsServer } from "deepagents-acp";
 import type { CopilotConfig } from "../config/types.js";
-import { buildModelEntries } from "../providers/model-utils.js";
-import type { ModelEntry } from "../providers/model-utils.js";
+import { buildModelEntries } from "../utils/model.js";
+import type { ModelEntry } from "../utils/model.js";
 import { patchInitialize, type AnyServer } from "./patches/patch-initialize.js";
 import { patchPrompt } from "./patches/patch-prompt.js";
 import { patchNewSession, patchLoadSession } from "./patches/patch-session.js";

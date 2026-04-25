@@ -19,6 +19,7 @@
 import { loadConfig } from "./config/index.js";
 import { buildServer } from "./server.js";
 import { resolveWorkspaceRoot, workspaceRootSource } from "./workspace/index.js";
+import { resolvePath } from "./utils/path.js";
 import { APP_NAME, APP_VERSION, ENV_CONFIG_VAR } from "./constants.js";
 
 // ---------------------------------------------------------------------------
@@ -108,7 +109,7 @@ function parseArgs(argv: string[]): CliArgs {
         case "--provider":  args.provider      = next; break;
         case "--model":     args.model         = next; break;
         case "--log-file":
-          args.logFile = next;
+          args.logFile = resolvePath(next);
           args.debug = true; // log-file implies debug
           break;
       }
