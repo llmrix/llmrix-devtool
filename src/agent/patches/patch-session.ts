@@ -11,7 +11,7 @@
  * connection object and replay them after the response is returned.
  */
 
-import type { ModelEntry } from "../../providers/model-utils.js";
+import type { ModelEntry } from "../../utils/model.js";
 import type { AnyServer } from "./patch-initialize.js";
 
 // ---------------------------------------------------------------------------

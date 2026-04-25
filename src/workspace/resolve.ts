@@ -8,6 +8,8 @@
 
 import path from "node:path";
 
+import { resolvePath } from "../utils/path.js";
+
 // ---------------------------------------------------------------------------
 // Internal helpers
 // ---------------------------------------------------------------------------
@@ -34,10 +36,10 @@ function isUnexpandedVariable(value: string): boolean {
  * Always returns an absolute path.
  */
 export function resolveWorkspaceRoot(explicitPath?: string): string {
-  if (explicitPath) return path.resolve(explicitPath);
+  if (explicitPath) return resolvePath(explicitPath);
 
   const envValue = process.env["WORKSPACE_ROOT"];
-  if (envValue && !isUnexpandedVariable(envValue)) return path.resolve(envValue);
+  if (envValue && !isUnexpandedVariable(envValue)) return resolvePath(envValue);
 
   return process.cwd();
 }

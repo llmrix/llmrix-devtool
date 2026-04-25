@@ -11,6 +11,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolvePath } from "../utils/path.js";
+import { resolveEnvVars } from "../utils/env.js";
 import { USER_CONFIG_FILE, ENV_CONFIG_VAR, APP_NAME } from "../constants.js";
 import type { CopilotConfig, ProviderConfig } from "./types.js";
 
@@ -59,10 +61,10 @@ const DEFAULT_CONFIG: CopilotConfig = {
 function candidatePaths(configPath?: string): string[] {
   const candidates: string[] = [];
 
-  if (configPath) candidates.push(path.resolve(configPath));
+  if (configPath) candidates.push(resolvePath(configPath));
 
   const envPath = process.env[ENV_CONFIG_VAR];
-  if (envPath) candidates.push(path.resolve(envPath));
+  if (envPath) candidates.push(resolvePath(envPath));
 
   candidates.push(USER_CONFIG_FILE);
   candidates.push(path.resolve(process.cwd(), "config.json"));
@@ -127,9 +129,9 @@ function migrateLegacy(raw: Record<string, unknown>): ProviderConfig[] | undefin
  */
 export function loadConfig(configPath?: string): CopilotConfig {
   const explicit = new Set<string>();
-  if (configPath) explicit.add(path.resolve(configPath));
+  if (configPath) explicit.add(resolvePath(configPath));
   const envPath = process.env[ENV_CONFIG_VAR];
-  if (envPath) explicit.add(path.resolve(envPath));
+  if (envPath) explicit.add(resolvePath(envPath));
 
   for (const candidate of candidatePaths(configPath)) {
     if (!fs.existsSync(candidate)) continue;
@@ -150,7 +152,7 @@ export function loadConfig(configPath?: string): CopilotConfig {
         migratedProviders ??
         (Array.isArray(parsed.providers) ? parsed.providers : DEFAULT_CONFIG.providers);
 
-      return {
+      return resolveEnvVars({
         provider: parsed.provider ?? DEFAULT_CONFIG.provider,
         model: parsed.model ?? DEFAULT_CONFIG.model,
         providers,
@@ -159,7 +161,7 @@ export function loadConfig(configPath?: string): CopilotConfig {
         ...(typeof parsed.maxToolOutputLines === "number"
           ? { maxToolOutputLines: parsed.maxToolOutputLines }
           : {}),
-      };
+      });
     } catch (err) {
       // If this was an explicitly supplied path (--config / env var), the user
       // clearly intends it to be used — a parse failure is a hard error.
