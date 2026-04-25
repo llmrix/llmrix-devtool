@@ -1,0 +1,16 @@
+# Source
+src/
+scripts/
+tsconfig.json
+CONTRIBUTING.md
+AGENTS.md
+LICENSE
+
+# Git
+.gitignore
+.github/
+
+# Misc
+node_modules/
+dist/*.ts
+dist/**/*.ts
