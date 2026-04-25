@@ -1,7 +1,24 @@
 {
   "name": "llmrix-devtool",
   "version": "0.0.1",
-  "description": "AI developer assistant powered by DeepAgents, supports Zed and IntelliJ ACP",
+  "description": "An AI coding assistant that runs as an [ACP] server over stdio. Works with **Zed**, **JetBrains IDEs**, and any other ACP-compatible client.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/llmrix/llmrix-devtool.git"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "coding-assistant",
+    "acp",
+    "zed",
+    "jetbrains"
+  ],
+  "author": "llmrix",
+  "homepage": "https://github.com/llmrix/llmrix-devtool#readme",
+  "bugs": {
+    "url": "https://github.com/llmrix/llmrix-devtool/issues"
+  },
   "license": "MIT",
   "type": "module",
   "files": [
@@ -11,7 +28,7 @@
     "CONTRIBUTING.md"
   ],
   "bin": {
-    "llmrix-devtool": "./dist/cli.js"
+    "llmrix-devtool": "dist/cli.js"
   },
   "scripts": {
     "build": "npm run clean && esbuild src/cli.ts src/index.ts src/scripts/postinstall.ts --bundle --minify --platform=node --format=esm --outdir=dist --packages=external && node scripts/copy-templates.mjs",
