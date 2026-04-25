@@ -23,6 +23,7 @@
   "type": "module",
   "files": [
     "dist/",
+    "assets/",
     "README.md",
     "LICENSE",
     "CONTRIBUTING.md"

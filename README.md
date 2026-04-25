@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.png" width="320" alt="llmrix-devtool logo">
+</p>
+
 # llmrix-devtool
 
 An AI coding assistant that runs as an [ACP](https://agentclientprotocol.com/) server over stdio. Works with **Zed**, **JetBrains IDEs**, and any other ACP-compatible client.
@@ -377,6 +381,12 @@ npm start -- --workspace /path/to/project             # run compiled binary
 ```
 
 Detailed contributing guidelines can be found in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
+
+## Acknowledgments
+
+Special thanks to **[deepagentsjs](https://github.com/langchain-ai/deepagentsjs)** for the inspiration and core logic of this project.
 
 ---
 
