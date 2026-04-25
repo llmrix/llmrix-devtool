@@ -380,13 +380,6 @@ Detailed contributing guidelines can be found in [CONTRIBUTING.md](CONTRIBUTING.
 
 ---
 
-## Acknowledgments
-
-This project is built upon the excellent work of the **DeepAgents** team. We are grateful for their open-source contributions.
-- [langchain-ai/deepagentsjs](https://github.com/langchain-ai/deepagentsjs)
-
----
-
 ## License
 
 MIT
