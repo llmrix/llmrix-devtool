@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs from "node:fs";
 import os from "node:os";
-import { FilesystemBackend } from "deepagents";
+import { LocalShellBackend } from "deepagents";
 import { SystemMessage } from "@langchain/core/messages";
 import type { CopilotConfig } from "./config/index.js";
 import { createModel } from "./providers/model.js";
@@ -190,6 +190,18 @@ export async function buildServer(options: ServerOptions): Promise<CopilotServer
     path.join(workspaceRoot, WORKSPACE_DATA_DIR, WORKSPACE_AGENTS_FILE),
   ];
 
+  // LocalShellBackend inherits all FilesystemBackend file operations and
+  // additionally exposes an `execute()` method via child_process.spawn,
+  // which is required for the agent's shell-execution tool to function.
+  // FilesystemBackend alone has no `execute()`, so the framework silently
+  // drops the tool — causing "permission denied" / "execution not available"
+  // errors inside the IDE.
+  const shellBackend = await LocalShellBackend.create({
+    rootDir: workspaceRoot,
+    inheritEnv: true,   // inherit PATH, HOME, etc. from the parent process
+    timeout: 120,       // 2-minute command timeout (seconds)
+  });
+
   const server = new CopilotServer({
     config,
     deepAgentsOptions: {
@@ -205,7 +217,7 @@ export async function buildServer(options: ServerOptions): Promise<CopilotServer
         "AI developer assistant with Agent/Plan/Ask modes. Supports filesystem access, code editing, and shell execution within your workspace.",
       model: chatModel,
       systemPrompt: buildSystemPrompt(workspaceRoot),
-      backend: new FilesystemBackend({ rootDir: workspaceRoot }),
+      backend: shellBackend,
       checkpointer,
       interruptOn: {
         execute: true,
