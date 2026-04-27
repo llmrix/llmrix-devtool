@@ -13,7 +13,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolvePath } from "../utils/path.js";
 import { resolveEnvVars } from "../utils/env.js";
-import { USER_CONFIG_FILE, ENV_CONFIG_VAR, APP_NAME } from "../constants.js";
+import { USER_CONFIG_FILE, WORKSPACE_CONFIG_FILE, ENV_CONFIG_VAR, APP_NAME } from "../constants.js";
 import type { CopilotConfig, ProviderConfig } from "./types.js";
 
 // ---------------------------------------------------------------------------
@@ -54,8 +54,8 @@ const DEFAULT_CONFIG: CopilotConfig = {
  * Return candidate config file paths in priority order (first readable wins):
  * 1. Explicit `configPath` argument
  * 2. `${ENV_CONFIG_VAR}` environment variable
- * 3. `~/.config/${APP_NAME}/config.json`
- * 4. `./config.json` (CWD)
+ * 3. `./.llmrix/config.json` (Project)
+ * 4. `~/.llmrix/config/config.json` (Global)
  * 5. `config.json` bundled next to the compiled binary
  */
 function candidatePaths(configPath?: string): string[] {
@@ -66,8 +66,8 @@ function candidatePaths(configPath?: string): string[] {
   const envPath = process.env[ENV_CONFIG_VAR];
   if (envPath) candidates.push(resolvePath(envPath));
 
+  candidates.push(path.resolve(process.cwd(), WORKSPACE_CONFIG_FILE));
   candidates.push(USER_CONFIG_FILE);
-  candidates.push(path.resolve(process.cwd(), "config.json"));
 
   try {
     const __filename = fileURLToPath(import.meta.url);
@@ -122,8 +122,8 @@ function migrateLegacy(raw: Record<string, unknown>): ProviderConfig[] | undefin
  * Resolution order (first readable file wins):
  * 1. Explicit `configPath` argument
  * 2. `${ENV_CONFIG_VAR}` env var
- * 3. `~/.config/${APP_NAME}/config.json`
- * 4. `./config.json` (CWD)
+ * 3. `./.llmrix/config.json` (Project)
+ * 4. `~/.llmrix/config/config.json` (Global)
  * 5. Bundled `config.json` next to the binary
  * 6. Built-in defaults (no file found)
  */

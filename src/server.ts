@@ -187,14 +187,14 @@ export async function buildServer(options: ServerOptions): Promise<CopilotServer
     // repeated createAgent calls (triggered by model switches) do not scan the
     // filesystem on every rebuild.
     const skillSources = [
-        path.join(workspaceRoot, WORKSPACE_SKILLS_DIR),
-        GLOBAL_SKILLS_DIR,
+        path.join(workspaceRoot, WORKSPACE_SKILLS_DIR), // 1. Project-level (hidden)
+        GLOBAL_SKILLS_DIR,                             // 2. Global-level
     ];
 
     // Memory files to load (absolute paths)
     const memoryFiles: string[] = [
-        GLOBAL_MEMORY_FILE,
-        path.join(workspaceRoot, WORKSPACE_AGENTS_FILE),
+        path.join(workspaceRoot, WORKSPACE_AGENTS_FILE), // 1. Project-level (hidden)
+        GLOBAL_MEMORY_FILE,                             // 2. Global-level
     ];
 
     // LocalShellBackend inherits all FilesystemBackend file operations and

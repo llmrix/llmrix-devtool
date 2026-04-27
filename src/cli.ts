@@ -48,12 +48,14 @@ Environment variables:
   OPENAI_API_KEY       API key for the OpenAI provider
   ${ENV_CONFIG_VAR}         Path to config.json (alternative to --config)
 
-Config file resolution order (first found wins):
-  1. --config <path>
-  2. ${ENV_CONFIG_VAR} env var
-  3. ~/.config/${APP_NAME}/config.json
-  4. ./config.json (current directory)
-  5. Built-in defaults
+Configuration Priority Matrix (Higher overrides Lower):
+
+ Priority | Config File             | Skills Directory       | Memory File
+ ---------|-------------------------|------------------------|-------------------------
+ 1 (High) | --config / Env Var      | -                      | -
+ 2        | ./.llmrix/config.json   | ./.llmrix/skills/      | ./.llmrix/memory/AGENTS.md
+ 3 (Low)  | ~/.llmrix/config/config | ~/.llmrix/skills/      | ~/.llmrix/memory/AGENTS.md
+
 
 Slash commands (inside IDE chat):
   /agent   Autonomous execution mode
