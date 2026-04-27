@@ -12,6 +12,8 @@
     "coding-assistant",
     "acp",
     "zed",
+    "llmrix",
+    "llmrix-devtool",
     "jetbrains"
   ],
   "author": "llmrix",
