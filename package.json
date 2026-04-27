@@ -1,6 +1,6 @@
 {
   "name": "llmrix-devtool",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An AI coding assistant that runs as an [ACP] server over stdio. Works with **Zed**, **JetBrains IDEs**, and any other ACP-compatible client.",
   "repository": {
     "type": "git",

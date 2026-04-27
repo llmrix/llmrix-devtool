@@ -9,7 +9,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { APP_NAME, WORKSPACE_DATA_DIR, WORKSPACE_AGENTS_FILE } from "../constants.js";
+import { APP_NAME, WORKSPACE_DATA_DIR, WORKSPACE_AGENTS_FILE, WORKSPACE_SKILLS_DIR } from "../constants.js";
 
 // ---------------------------------------------------------------------------
 // Template loader

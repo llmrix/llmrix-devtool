@@ -61,6 +61,7 @@ Slash commands (inside IDE chat):
   /ask     Q&A mode (no tool calls)
   /clear   Clear conversation
   /status  Show current session status
+  /mcp     List connected MCP servers and available tools
 `);
 }
 
