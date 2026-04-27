@@ -45,7 +45,7 @@ export class McpManager {
     });
 
     const client = new Client(
-      { name: "llmrix-devtool", version: "0.0.1" },
+      { name: "llmrix-devtool", version: "0.0.3" },
       { capabilities: {} }
     );
 
