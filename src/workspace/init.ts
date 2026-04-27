@@ -54,18 +54,19 @@ function readTemplate(filename: string, fallback: string): string {
  * Existing files are never overwritten.
  */
 export function initWorkspace(workspaceRoot: string): void {
-  // <workspaceRoot>/AGENTS.md
+  // <workspaceRoot>/.llmrix/memory/AGENTS.md
   const agentsMd = path.join(workspaceRoot, WORKSPACE_AGENTS_FILE);
   if (!fs.existsSync(agentsMd)) {
     try {
-      fs.writeFileSync(agentsMd, readTemplate(WORKSPACE_AGENTS_FILE, "# Agent Memory\n"), "utf-8");
+      fs.mkdirSync(path.dirname(agentsMd), { recursive: true });
+      fs.writeFileSync(agentsMd, readTemplate("AGENTS.md", "# Agent Memory\n"), "utf-8");
     } catch {
       // Non-fatal — workspace may be read-only
     }
   }
 
   // <workspaceRoot>/.llmrix/skills/.gitkeep
-  const skillsDir = path.join(workspaceRoot, WORKSPACE_DATA_DIR, "skills");
+  const skillsDir = path.join(workspaceRoot, WORKSPACE_SKILLS_DIR);
   const gitkeep = path.join(skillsDir, ".gitkeep");
   if (!fs.existsSync(gitkeep)) {
     try {

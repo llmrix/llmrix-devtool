@@ -21,6 +21,16 @@ export interface ProviderConfig {
   models: string[];
 }
 
+/** Configuration for an MCP server (standard format). */
+export interface McpServerConfig {
+  /** Command to execute (e.g. "npx", "python3") */
+  command: string;
+  /** Arguments for the command */
+  args?: string[];
+  /** Environment variables to pass to the server process */
+  env?: Record<string, string>;
+}
+
 /** Root configuration schema for config.json. */
 export interface CopilotConfig {
   /** ID of the active provider (must match a `providers[].id`) */
@@ -29,6 +39,8 @@ export interface CopilotConfig {
   model: string;
   /** All providers (built-in and custom) */
   providers: ProviderConfig[];
+  /** MCP servers to connect to and fetch tools/resources from */
+  mcpServers?: Record<string, McpServerConfig>;
   /**
    * LLM request timeout in milliseconds.
    * Defaults to 600_000 (10 minutes) when omitted.
