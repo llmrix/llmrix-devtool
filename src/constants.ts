@@ -14,7 +14,7 @@ import os from "node:os";
 // ---------------------------------------------------------------------------
 
 export const APP_NAME = "llmrix-devtool";
-export const APP_VERSION = "0.0.1";
+export const APP_VERSION = "0.0.5";
 
 /** Internal name used for config directories and environment variables (e.g., "llmrix") */
 export const CONFIG_NAME = "llmrix";
@@ -45,5 +45,8 @@ export const GLOBAL_SKILLS_DIR = path.join(USER_DATA_DIR, "skills");
 
 /** Hidden directory inside the workspace (e.g., ".llmrix/") */
 export const WORKSPACE_DATA_DIR = DOT_CONFIG_NAME;
-export const WORKSPACE_AGENTS_FILE = "AGENTS.md";
+export const WORKSPACE_MEMORY_DIR = path.join(WORKSPACE_DATA_DIR, "memory");
+export const WORKSPACE_SKILLS_DIR = path.join(WORKSPACE_DATA_DIR, "skills");
+export const WORKSPACE_CONFIG_FILE = path.join(WORKSPACE_DATA_DIR, "config.json");
+export const WORKSPACE_AGENTS_FILE = path.join(WORKSPACE_MEMORY_DIR, "AGENTS.md");
 

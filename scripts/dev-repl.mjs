@@ -185,7 +185,7 @@ async function handshake() {
   // 1. initialize
   await send(makeRequest("initialize", {
     protocolVersion: "2025-03-26",
-    clientInfo: { name: "dev-repl", version: "0.0.1" },
+    clientInfo: { name: "dev-repl", version: "0.0.5" },
     capabilities: {},
   }));
 

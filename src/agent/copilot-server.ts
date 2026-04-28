@@ -26,9 +26,16 @@ import { patchModelSwitch } from "./patches/patch-model-switch.js";
 // Options
 // ---------------------------------------------------------------------------
 
+import { McpManager } from "../utils/mcp.js";
+
+// ---------------------------------------------------------------------------
+// Options
+// ---------------------------------------------------------------------------
+
 export interface CopilotServerOptions {
   deepAgentsOptions: ConstructorParameters<typeof DeepAgentsServer>[0];
   config: CopilotConfig;
+  mcpManager?: McpManager;
 }
 
 // Re-export for consumers (index.ts barrel)
@@ -41,6 +48,7 @@ export type { ModelEntry };
 export class CopilotServer extends DeepAgentsServer {
   private readonly _config: CopilotConfig;
   private readonly _modelEntries: ModelEntry[];
+  private readonly _mcpManager?: McpManager;
   /** sessionId → currently selected "<providerId>:<modelName>" */
   private readonly _sessionModels = new Map<string, string>();
   private _cleanupTimer: ReturnType<typeof setInterval> | undefined;
@@ -48,6 +56,7 @@ export class CopilotServer extends DeepAgentsServer {
   constructor(options: CopilotServerOptions) {
     super(options.deepAgentsOptions);
     this._config = options.config;
+    this._mcpManager = options.mcpManager;
     this._modelEntries = buildModelEntries(options.config);
 
     this._assertInternalApi();
@@ -106,6 +115,9 @@ export class CopilotServer extends DeepAgentsServer {
     if (this._cleanupTimer !== undefined) {
       clearInterval(this._cleanupTimer);
       this._cleanupTimer = undefined;
+    }
+    if (this._mcpManager) {
+      await this._mcpManager.shutdown();
     }
     await super.stop();
   }
