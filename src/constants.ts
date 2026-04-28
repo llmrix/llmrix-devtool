@@ -14,7 +14,7 @@ import os from "node:os";
 // ---------------------------------------------------------------------------
 
 export const APP_NAME = "llmrix-devtool";
-export const APP_VERSION = "0.0.7";
+export const APP_VERSION = "0.0.5";
 
 /** Internal name used for config directories and environment variables (e.g., "llmrix") */
 export const CONFIG_NAME = "llmrix";
